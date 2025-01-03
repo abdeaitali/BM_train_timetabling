@@ -1,0 +1,9 @@
+#ifndef MPI_CONSTANTS_H
+#define MPI_CONSTANTS_H
+
+int TERMINATE = -1337;
+int JOB_ASSIGN_TAG = 13;
+int JOB_DONE_TAG = 27;
+int JOB_RESULT_TAG = 28;
+
+#endif

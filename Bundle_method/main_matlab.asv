@@ -1,0 +1,49 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  Main program: TTP using Lagrangian Relaxation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Obs. Before running this code, please make sure
+%%%   that the mex-files were generated
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Initialization
+k_max = 5; % maximum number of iterations
+k = 1; % current iteration number
+B = 100; % number of spatial blocks
+T = 24*60*2; % number of time step 
+
+%%% Parameters to store the iteration results
+mu = zeros(B,T,k_max); % initial prices
+Phi = zeros(B,T,k_max);
+
+
+%%% Read the network data (specify the absolute path with "/")
+[ids, requests, network, ordering] = MexReadData('C:/Users/abde/Desktop/PhD/Projects/[PO] Langrangean relaxation/data');
+
+%%% 
+
+%%% Dual iteration
+while k <= k_max
+    %%% Solve the shortes path (C++)
+    [Phi_current] = MexShortestPathSeq(ids, requests, network, ordering, mu(:,:,k));
+    
+    %%% Compute the new prices (Matlab)
+    % mu = sub_gradient(mu);
+    % mu = bundle_simple(mu);
+    % mu = bundle_disaggregate(mu);
+    mu = rand([B T]);
+    
+    % next iteration
+    k = k+1;
+end
+
+%%% Primal Problem
+% Talk to PO
+
+
+%%% Rapid Branching
+
+
+
+%%% Results
